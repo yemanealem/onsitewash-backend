@@ -10,6 +10,8 @@ FastAPI backend for OnsiteWash quote and email system.
 - Email templates
 - Documentation
 - PostgreSQL ready
+- Docker support
+- GitHub Actions CI
 
 ## Tech Stack
 
@@ -18,6 +20,8 @@ FastAPI backend for OnsiteWash quote and email system.
 - SQLAlchemy
 - Jinja2 (templates)
 - SMTP email
+- Docker
+- GitHub Actions
 - Python
 
 ## Setup
@@ -27,6 +31,7 @@ FastAPI backend for OnsiteWash quote and email system.
 ```bash
 git clone https://github.com/yemanealem/onsitewash-backend.git
 cd onsitewash-backend
+
 ```
 
 python -m venv venv
