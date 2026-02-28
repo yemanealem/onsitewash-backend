@@ -34,25 +34,29 @@ def create_quote(request: QuoteRequest, db: Session = Depends(get_db)):
     db.refresh(db_quote)
 
     context = {
-        "full_name": request.full_name,
-        "service_type": request.service_type,
-        "preferred_date": request.preferred_date,
-        "preferred_time": request.preferred_time
-    }
+    "full_name": request.full_name,
+    "service_type": request.service_type,
+    "preferred_date": request.preferred_date,
+    "preferred_time": request.preferred_time,
+    "email": request.email,
+    "phone": request.phone
+}
 
     # email to customer
     send_email(
-    request.email,
-    "OnsiteWash - Quote Confirmation",
-    f"Thank you {request.full_name}. We have received your quote request. We will come back to you."
-)
-
+        request.email,
+        "OnsiteWash - Quote Confirmation",
+        "quote_customer.html",
+        context
+    )
 
     # email to owner
     send_email(
         os.getenv("OWNER_EMAIL"),
         "New Quote Request",
-        f"New quote from {request.full_name}. Service: {request.service_type}"
+        "quote_owner.html",
+        context
     )
+
 
     return {"id": db_quote.id}

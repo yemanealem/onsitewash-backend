@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quote Confirmation</title>
+  </head>
+  <body>
+    <h2>Thank you {{ full_name }}</h2>
+
+    <p>
+      We have received your quote request. We will come back to you as soon as
+      possible.
+    </p>
+
+    <h3>Details</h3>
+    <ul>
+      <li>Service: {{ service_type }}</li>
+      <li>Date: {{ preferred_date }}</li>
+      <li>Time: {{ preferred_time }}</li>
+    </ul>
+
+    <p>Best regards,<br />OnsiteWash Team</p>
+  </body>
+</html>

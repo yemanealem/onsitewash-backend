@@ -1,9 +1,18 @@
 import smtplib
 from email.mime.text import MIMEText
+from jinja2 import Environment, FileSystemLoader
 import os
 
-def send_email(to_email: str, subject: str, body: str):
-    msg = MIMEText(body, "html")
+TEMPLATE_DIR = "app/templates/email"
+
+def send_email(to_email: str, subject: str, template_name: str, context: dict):
+
+    env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
+    template = env.get_template(template_name)
+
+    html_content = template.render(context)
+
+    msg = MIMEText(html_content, "html")
     msg["Subject"] = subject
     msg["From"] = os.getenv("EMAIL_FROM")
     msg["To"] = to_email
