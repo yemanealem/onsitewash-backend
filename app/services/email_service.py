@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 from jinja2 import Environment, FileSystemLoader
 import os
 
-TEMPLATE_DIR = "app/templates/email"
+TEMPLATE_DIR = "app/templates"
 
 def send_email(to_email: str, subject: str, template_name: str, context: dict):
 

@@ -1,16 +1,16 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from datetime import date
 from enum import Enum
 from typing import Optional
+import re
+
 
 class ServiceType(str, Enum):
-    basic = "basic"
-    premium = "premium"
-    deluxe = "deluxe"
+    truck_wash = "Truck Wash"
+    fleet_wash = "Fleet Wash"
+    commercial_dock_wash = "Commercial Dock Wash"
+    pressure_washing = "Pressure Washing"
 
-class PreferredTime(str, Enum):
-    AM = "AM"
-    PM = "PM"
 
 class QuoteRequest(BaseModel):
     full_name: str = Field(..., min_length=2, max_length=100)
@@ -20,9 +20,17 @@ class QuoteRequest(BaseModel):
 
     service_type: ServiceType
     preferred_date: date
-    preferred_time: PreferredTime
+    preferred_time: str
 
     additional_notes: Optional[str] = Field(None, max_length=500)
 
+    @field_validator("preferred_time")
+    @classmethod
+    def validate_time_format(cls, v: str):
+        pattern = r"^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$"
+        if not re.match(pattern, v):
+            raise ValueError("Time must be in format 'HH:MM AM/PM'")
+        return v
+
     class Config:
-        orm_mode = True
+        from_attributes = True
