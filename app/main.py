@@ -1,11 +1,14 @@
 from fastapi import FastAPI
-from fastapi import FastAPI
-from app.api.v1.quote import router as quote_router
 from fastapi.middleware.cors import CORSMiddleware
 
-
+from app.api.v1.quote import router as quote_router
+from app.database import Base, engine, SessionLocal, get_db
+from app.models.quote import Quote
 
 app = FastAPI(title="OnsiteWash Backend")
+
+Base.metadata.create_all(bind=engine)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -18,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(quote_router, prefix="/api/v1")
+
 
 @app.get("/")
 def health():

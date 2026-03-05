@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.schemas.quote import QuoteRequest
-from app.db.database import SessionLocal
+from app.database import SessionLocal
 from app.models.quote import Quote
 from app.services.email_service import send_email
 import os
