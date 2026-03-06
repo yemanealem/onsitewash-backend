@@ -5,7 +5,7 @@ import os
 
 TEMPLATE_DIR = "app/templates"
 
-def send_email(to_email: str, subject: str, template_name: str, context: dict):
+def send_email(customer_email: str, subject: str, template_name: str, context: dict):
 
     env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
     template = env.get_template(template_name)
@@ -14,10 +14,20 @@ def send_email(to_email: str, subject: str, template_name: str, context: dict):
 
     msg = MIMEText(html_content, "html")
     msg["Subject"] = subject
-    msg["From"] = os.getenv("EMAIL_FROM")
-    msg["To"] = to_email
 
-    with smtplib.SMTP(os.getenv("SMTP_HOST"), 587) as server:
+    owner_email = os.getenv("EMAIL_FROM") 
+    msg["From"] = owner_email
+
+    recipient = os.getenv("EMAIL_TO")      
+    msg["To"] = recipient
+
+    smtp_host = os.getenv("SMTP_HOST")
+    smtp_user = os.getenv("SMTP_USER")
+    smtp_pass = os.getenv("SMTP_PASS")
+
+    with smtplib.SMTP(smtp_host, 587) as server:
         server.starttls()
-        server.login(os.getenv("SMTP_USER"), os.getenv("SMTP_PASS"))
-        server.sendmail(msg["From"], to_email, msg.as_string())
+        server.login(smtp_user, smtp_pass)
+
+        # send to owner inbox
+        server.sendmail(owner_email, recipient, msg.as_string())

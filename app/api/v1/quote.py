@@ -42,18 +42,22 @@ def create_quote(request: QuoteRequest, db: Session = Depends(get_db)):
     db.refresh(db_quote)
 
     
+  
     context = {
-    "full_name": request.full_name,
-    "service_type": request.service_type.value,
-    "preferred_date": request.preferred_date,
-    "preferred_time": request.preferred_time,
-}
+        "full_name": request.full_name,
+        "phone": request.phone,
+        "email": request.email,
+        "service_type": request.service_type.value,
+        "preferred_date": request.preferred_date,
+        "preferred_time": request.preferred_time,
+        "additional_notes": request.additional_notes,
+    }
 
     try:
         send_email(
             request.email,
             "OnsiteWash - Quote Confirmation",
-            "quote_customer.html",
+            "quote_owner.html",
             context
         )
     except Exception as e:
