@@ -14,7 +14,7 @@ app.add_middleware(
     allow_origins=[
         "https://onsitewash-frontend-app-u7e5k.ondigitalocean.app",
         "https://www.onsitespray.com.au",
-        "https://onsitespray.com.au/",
+        "https://onsitespray.com.au"
     ],
     allow_credentials=True,
     allow_methods=["*"],

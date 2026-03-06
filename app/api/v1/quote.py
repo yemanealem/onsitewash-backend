@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from app.schemas.quote import QuoteRequest
+from app.schemas.quote_response import QuoteResponse
+
 from app.database import SessionLocal
 from app.models.quote import Quote
 from app.services.email_service import send_email
