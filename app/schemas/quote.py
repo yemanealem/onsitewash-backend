@@ -16,7 +16,7 @@ class QuoteRequest(BaseModel):
     full_name: str = Field(..., min_length=2, max_length=100)
     phone: str = Field(..., min_length=6, max_length=20)
     email: EmailStr
-    address: Optional[str] = Field(None, min_length=5, max_length=200)
+    address: Optional[str] = Field(None, min_length=2, max_length=200)
     service_type: ServiceType
     preferred_date: date
     preferred_time: str
