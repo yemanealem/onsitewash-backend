@@ -23,6 +23,8 @@ class QuoteRequest(BaseModel):
 
     additional_notes: Optional[str] = Field(None, max_length=500)
 
+
+   
     @field_validator("preferred_time")
     @classmethod
     def validate_time_format(cls, v: str):
@@ -31,5 +33,11 @@ class QuoteRequest(BaseModel):
             raise ValueError("Time must be in format 'HH:MM AM/PM'")
         return v
 
+    @field_validator("address", mode="before")
+    @classmethod
+    def empty_str_to_none(cls, v):
+        if v == "":
+            return None
+        return v
     class Config:
         from_attributes = True
