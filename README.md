@@ -29,8 +29,8 @@ FastAPI backend for OnsiteWash quote and email system.
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/yemanealem/onsitewash-backend.git
-cd onsitewash-backend
+git clone https://github.com/yemanealem/weknowabroker-backend.git
+cd weknowabroker-backend
 
 ```
 

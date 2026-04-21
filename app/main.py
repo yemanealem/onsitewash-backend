@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.v1.quote import router as quote_router
+from app.api.v1.enquiry import router as enquiry_router
 from app.database import Base, engine, SessionLocal, get_db
-from app.models.quote import Quote
+from app.models.Enquiry import Enquiry
 
-app = FastAPI(title="OnsiteWash Backend")
+app = FastAPI(title="We know a broker")
 
 Base.metadata.create_all(bind=engine)
 
@@ -14,6 +14,7 @@ app.add_middleware(
     allow_origins=[
         "https://onsitewash-frontend-app-u7e5k.ondigitalocean.app",
         "https://www.onsitespray.com.au",
+        "http://localhost:8080",
         "https://onsitespray.com.au"
     ],
     allow_credentials=True,
@@ -21,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(quote_router, prefix="/api/v1")
+app.include_router(enquiry_router, prefix="/api/v1")
 
 
 @app.get("/")
